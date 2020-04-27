@@ -1,0 +1,30 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+# R Markdown and Leaflet
+
+```{r}
+setwd("C:/Users/rr111836/Desktop/Studies/Coursera/4/Map")
+data<-read.csv("Covid.csv")
+library(leaflet)
+```
+
+### Map as at 12th March
+
+```{r}
+my_map <- data %>%
+        leaflet() %>%
+        addTiles("Covid as at 12th March 2020") %>% 
+        setView(lng = -85, lat = 40, zoom = 5) %>% 
+        addMarkers(popup = paste("Confirmed", data$confirmed, "<br>",
+                           "Recovered:", data$recovered, "<br>",
+                           "Death:", data$death
+                           ))%>% 
+        addCircles(weight=1,radius=sqrt(data$confirmed)*30000)
+       my_map
+
+```
+
